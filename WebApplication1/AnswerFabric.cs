@@ -30,21 +30,75 @@ namespace AliseCofeemaker
         }
         public Dictionary<string, object> Answer(string command)
         {
+            Dictionary<string, object> responseProperties = new Dictionary<string, object>();
+            bool isEnd = false;
+            var answers = replics.GetAnswersCollection();
+
             if (command.ToLower() == "")
             {
                 Q = QPart.hello;
                 A = APart.hello;
+            } else if(replics.GetAnswers(APart.end).Any(s => s.IndexOf(command.ToLower(), StringComparison.CurrentCultureIgnoreCase) > -1))
+            {
+                A = APart.end;
+                Q = QPart.end;
+                isEnd = true;
+            } else
+            {
+                
+                foreach (var key in answers.Keys)
+                {
+                    if (answers[key].Any(s => s.IndexOf(command.ToLower(), StringComparison.CurrentCultureIgnoreCase) > -1))
+                    {
+                        A = key;
+                        Q = replics.GetNextQuestion(A);
+                        break;
+                    } else
+                    {
+                        A = APart.end;
+                        Q = QPart.error;
+                        isEnd = true;
+                    }
+                }
             }
 
+            if (Q == QPart.status && A == APart.status)
+            {
+                responseProperties = GetCofeeStatus();
+                responseProperties["text"] += GetRandomQuestion(replics.GetQuestions(Q));
+                responseProperties["tts"] += (string)responseProperties["text"];
 
+            } else
+            {
+                responseProperties["text"] = GetRandomQuestion(replics.GetQuestions(Q));
+                responseProperties["tts"] = responseProperties["text"];
+                responseProperties["isEnd"] = isEnd;
+            }
+            return responseProperties;
+        }
+
+        private string GetRandomQuestion(string[] questions)
+        {
+            Random r = new Random();
+            int pos = r.Next(questions.Count() - 1);
+            return questions.ToList()[pos];
+        }
+
+
+        private Dictionary<string, object> GetCofeeStatus()
+        {
             try
             {
                 int statusCode = checker.CheckStatus();
                 return CofeeStatusAnswers(statusCode);
-
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
-
+                var exceptionResult = new Dictionary<string, object>();
+                exceptionResult["text"] = "Кажется, кофемашина не работает";
+                exceptionResult["tts"] = "Кажется, кофемашина не работает";
+                exceptionResult["isEnd"] = true;
+                return exceptionResult;
             }
         }
 

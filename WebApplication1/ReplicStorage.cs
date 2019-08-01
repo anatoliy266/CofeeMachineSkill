@@ -11,7 +11,9 @@ namespace AliseCofeemaker
         what,
         cofeeType,
         startWork,
-        status
+        status,
+        error,
+        end
     }
 
     public enum APart
@@ -21,7 +23,8 @@ namespace AliseCofeemaker
         whatCofee,
         cofeeType,
         startWork,
-        status
+        status,
+        end
     }
 
     public interface IReplicStorage
@@ -30,6 +33,9 @@ namespace AliseCofeemaker
         string[] GetQuestions(QPart type);
 
         QPart GetNextQuestion(APart type);
+
+        Dictionary<APart, string[]> GetAnswersCollection();
+
     }
 
     public class ReplicStorage: IReplicStorage
@@ -37,6 +43,7 @@ namespace AliseCofeemaker
         private Dictionary<QPart, string[]> questionStorage = new Dictionary<QPart, string[]>();
         private Dictionary<APart, string[]> answerStorage = new Dictionary<APart, string[]>();
         private Dictionary<APart, QPart> dialogueSchema = new Dictionary<APart, QPart>();
+        private Dictionary<QPart, APart> QADependency = new Dictionary<QPart, APart>();
 
         public ReplicStorage()
         {
@@ -67,18 +74,27 @@ namespace AliseCofeemaker
                                                 , "Вы когда-нибудь задумывались над тем, чем же вам хочется заниматься по-настоящему? Я нет"
                                                 }; questionStorage[QPart.status] = statusQ;
 
+            string[] errorQ = new string[] { "Что-то пошло не так", "О чем ты говоришь?", "Я не знаю таких слов", "Моя не знать, моя не понимать" }; questionStorage[QPart.error] = errorQ;
+
+            string[] endQ = new string[] { "Пока", "До свидания", "Бывай", "До встречи", "Покеда" }; questionStorage[QPart.end] = endQ;
+            string[] endA = new string[] { "пока", "до свидания", "прощай", "до встречи", "закончить" }; answerStorage[APart.end] = endA;
+
             dialogueSchema[APart.hello] = QPart.what;
             dialogueSchema[APart.whatStatus] = QPart.status;
             dialogueSchema[APart.whatCofee] = QPart.cofeeType;
             dialogueSchema[APart.cofeeType] = QPart.startWork;
             dialogueSchema[APart.startWork] = QPart.status;
             dialogueSchema[APart.status] = QPart.status;
-
         }
 
         public string[] GetAnswers(APart type)
         {
             return answerStorage[type];
+        }
+
+        public Dictionary<APart, string[]> GetAnswersCollection()
+        {
+            return answerStorage;
         }
 
         public QPart GetNextQuestion(APart type)

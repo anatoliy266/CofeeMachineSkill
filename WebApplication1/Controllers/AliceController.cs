@@ -23,24 +23,23 @@ namespace AliseCofeemaker.Controllers
     public class AliceController : ControllerBase
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private DialogStatus dStatus;
 
         //private IBaseWebServiceSettings Settings { get; set; }
-        private IStatus sChecker;
+        private IAnswerFabric answerFabric;
         //public AliceController(IBaseWebServiceSettings settings)
-        public AliceController(IStatus statusChecker)
+        public AliceController(IAnswerFabric fabric)
         {
             //Settings = settings;
-            sChecker = statusChecker;
+            answerFabric = fabric;
         }
 
         [HttpPost]
         //api/Alice
         public AliceResponse CofeeRequest([FromBody] AliceRequest aliceRequest)
         {
-            try
+            /*try
             {
-                logger.Debug("Получен запрос от Алисы: " + JsonConvert.SerializeObject(aliceRequest));
+                
                 AliceResponse responce = new AliceResponse();
                 if (aliceRequest.Request.OriginalUtterance == "")
                 {
@@ -66,10 +65,13 @@ namespace AliseCofeemaker.Controllers
             } catch (Exception e)
             {
                 return aliceRequest.Reply(e.Message + ":::" + sChecker.CheckStatus(), e.Message + ":::" + sChecker.CheckStatus(), true);
-            } 
+            } */
+            logger.Debug("Получен запрос от Алисы: " + JsonConvert.SerializeObject(aliceRequest));
+            var answerProps = answerFabric.Answer(aliceRequest.Request.OriginalUtterance);
+            return aliceRequest.Reply(answerProps);
         }
 
-        private Dictionary<string, object> Answer(int statusCode)
+        /*private Dictionary<string, object> Answer(int statusCode)
         {
             string answer = "";
             string answerTts = "";
@@ -131,6 +133,6 @@ namespace AliseCofeemaker.Controllers
             result["tts"] = answerTts;
             result["isEnd"] = bIsDialogEnd;
             return result;
-        }
+        }*/
     }
 }
