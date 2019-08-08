@@ -45,7 +45,10 @@ namespace AliseCofeemaker
                 isEnd = true;
             } else
             {
-                
+
+                A = APart.end;
+                Q = QPart.error;
+                isEnd = true;
                 foreach (var key in answers.Keys)
                 {
                     if (answers[key].Any(s => s.IndexOf(command.ToLower(), StringComparison.CurrentCultureIgnoreCase) > -1))
@@ -53,11 +56,6 @@ namespace AliseCofeemaker
                         A = key;
                         Q = replics.GetNextQuestion(A);
                         break;
-                    } else
-                    {
-                        A = APart.end;
-                        Q = QPart.error;
-                        isEnd = true;
                     }
                 }
             }

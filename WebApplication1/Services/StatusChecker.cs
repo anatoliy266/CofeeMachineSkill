@@ -23,9 +23,6 @@ namespace AliseCofeemaker
         public int CheckStatus()
         {
             checker = new WebClient();
-            //checker.UseDefaultCredentials = true;
-            //checker.Headers.Add(HttpRequestHeader.Allow, "GET");
-            //checker.Headers.Add(HttpRequestHeader.Connection, "close");
             var result = Convert.ToInt32(checker.DownloadString("https://apigate.info/api/cofee"));
             
             return result;
