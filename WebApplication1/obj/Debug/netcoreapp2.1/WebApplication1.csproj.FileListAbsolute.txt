@@ -26,3 +26,17 @@ C:\Users\admin\source\repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcorea
 C:\Users\admin\source\repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.dll
 C:\Users\admin\source\repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.pdb
 C:\Users\admin\source\repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.RazorTargetAssemblyInfo.cache
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.csprojAssemblyReference.cache
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.RazorAssemblyInfo.cache
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.RazorAssemblyInfo.cs
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.AssemblyInfoInputs.cache
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.AssemblyInfo.cs
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.dll
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.pdb
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.deps.json
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.runtimeconfig.json
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.runtimeconfig.dev.json
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.dll
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\bin\Debug\netcoreapp2.1\WebApplication1.pdb
+C:\Users\vs19\Source\Repos\CofeeMachineSkill\WebApplication1\obj\Debug\netcoreapp2.1\WebApplication1.RazorTargetAssemblyInfo.cache

@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLog;
-using StranzitOnline.Common.Models;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using AliseCofeemaker.Controllers;
+using AliseCofeemaker.Services;
+using AliseCofeemaker.Modules;
+using AliseCofeemaker.Models;
 //using StranzitOnline.Common.Models.Settings.Base;
 //using System.Web.Http;
 

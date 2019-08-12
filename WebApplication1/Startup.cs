@@ -11,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AliseCofeemaker.Controllers;
+using AliseCofeemaker.Services;
+using AliseCofeemaker.Modules;
+using AliseCofeemaker.Models;
 
 namespace AliseCofeemaker
 {
@@ -31,6 +35,7 @@ namespace AliseCofeemaker
             services.AddScoped<IStatus, StatusChecker>();
             services.AddScoped<IAnswerFabric, AnswerFabric>();
             services.AddScoped<IReplicStorage, ReplicStorage>();
+            services.AddScoped<ILot, LotManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

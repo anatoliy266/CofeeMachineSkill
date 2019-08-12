@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliseCofeemaker;
 using AliseCofeemaker.Controllers;
+using AliseCofeemaker.Modules;
+using AliseCofeemaker.Models;
 
-namespace AliseCofeemaker
+namespace AliseCofeemaker.Services
 {
     
 
@@ -16,16 +18,18 @@ namespace AliseCofeemaker
     public class AnswerFabric : IAnswerFabric
     {
         private IStatus checker;
+        private ILot lot;
         private IReplicStorage replics;
 
         private QPart Q;
         private APart A;
 
 
-        public AnswerFabric(IStatus status, IReplicStorage rs)
+        public AnswerFabric(IStatus status, IReplicStorage rs, ILot Lot)
         {
             checker = status;
             replics = rs;
+            lot = Lot;
             //_dPart = DialogPart.noDial;
         }
         public Dictionary<string, object> Answer(string command)

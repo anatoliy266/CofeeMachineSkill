@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AliseCofeemaker
+namespace AliseCofeemaker.Modules
 {
     public enum CofeeStatus
     {

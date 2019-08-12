@@ -4,9 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Net.Http;
+using AliseCofeemaker.Controllers;
+using AliseCofeemaker.Modules;
+using AliseCofeemaker.Models;
 
 
-namespace AliseCofeemaker
+namespace AliseCofeemaker.Services
 {
     public interface IStatus
     {

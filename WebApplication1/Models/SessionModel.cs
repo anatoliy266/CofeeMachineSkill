@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
-namespace StranzitOnline.Common.Models
+namespace AliseCofeemaker.Models
 {
 
     /// <summary>

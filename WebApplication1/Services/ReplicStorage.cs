@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliseCofeemaker.Controllers;
+using AliseCofeemaker.Modules;
+using AliseCofeemaker.Models;
 
-namespace AliseCofeemaker
+namespace AliseCofeemaker.Services
 {
     public enum QPart
     {
