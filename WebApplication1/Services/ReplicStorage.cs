@@ -16,7 +16,12 @@ namespace AliseCofeemaker.Services
         startWork,
         status,
         error,
-        end
+        end,
+        about,
+        lot,
+        lotAddActor,
+        lotAddActorErr,
+        lotEndAddActor
     }
 
     public enum APart
@@ -27,7 +32,11 @@ namespace AliseCofeemaker.Services
         cofeeType,
         startWork,
         status,
-        end
+        end,
+        about,
+        lot,
+        lotAddActor,
+        lotEndAddActor
     }
 
     public interface IReplicStorage
@@ -79,8 +88,32 @@ namespace AliseCofeemaker.Services
 
             string[] errorQ = new string[] { "Что-то пошло не так", "О чем ты говоришь?", "Я не знаю таких слов", "Моя не знать, моя не понимать" }; questionStorage[QPart.error] = errorQ;
 
-            string[] endQ = new string[] { "Пока", "До свидания", "Бывай", "До встречи", "Покеда" }; questionStorage[QPart.end] = endQ;
-            string[] endA = new string[] { "пока", "до свидания", "прощай", "до встречи", "закончить" }; answerStorage[APart.end] = endA;
+            string[] endA = new string[] { "Пока", "До свидания", "Бывай", "До встречи", "Покеда" }; questionStorage[QPart.end] = endQ;
+            string[] endQ = new string[] { "пока", "до свидания", "прощай", "до встречи", "закончить" }; answerStorage[APart.end] = endA;
+
+            string[] aboutA = new string[] { "что ты умеешь" }; questionStorage[QPart.about] = aboutQ;
+            string[] aboutQ = new string[] { "" }; answerStorage[APart.about] = aboutA;
+
+            string[] helpA = new string[] { "помощь" }; questionStorage[QPart.help] = helpQ;
+            string[] helpQ = new string[] { "" }; answerStorage[APart.help] = helpA;
+            //жребий
+
+            //запрос от пользователя на розыгрыш по жребию
+            string[] lotA = new string[] { "кто пойдет на обед" }; answerStorage[APart.lot] = lotA;
+            //запрос имен участников розыгрыша, пока не задана команда на конец набора - другие команды недоступны.
+            string[] lotQ = new string[] { "Кто хочет идти?" }; questionStorage[QPart.lot] = lotQ;
+            //успешное добавление участника
+            string[] lotAddActorQ { "Кто-то еще?" }; questionStorage[QPart.lotAddActor] = lotAddActorQ;
+            //ошибка при добавлении участника, не определено имя в alicerequest/
+            string[] lotAddActorErr { "Это не похоже на имя, попробуйте еще раз" }; questionStorage[QPart.lotAddActorErr] = lotAddActorErr; 
+            //завершение набора участников.
+            string[] lotEndAddActorA = new string[] { "это все", "больше никого" }; answerStorage[APart.lotEndAddActor] = lotEndAddActorA;
+            //вывод участника розыгрыша
+            string[] lotEndAddActorQ = new string[] { "Бросаю жребий...\r\nСейчас на обед пойдет " }; questionStorage[QPart.lotEndAddActor];
+
+
+            //запись на прием
+            string[] secretary = new string[] { };
 
             dialogueSchema[APart.hello] = QPart.what;
             dialogueSchema[APart.whatStatus] = QPart.status;
@@ -88,6 +121,11 @@ namespace AliseCofeemaker.Services
             dialogueSchema[APart.cofeeType] = QPart.startWork;
             dialogueSchema[APart.startWork] = QPart.status;
             dialogueSchema[APart.status] = QPart.status;
+            dialogueSchema[APart.about] = QPart.about;
+            dialogueSchema[APart.help] = QPart.help;
+            dialogueSchema[APart.lot] = QPart.lot;
+            dialogueSchema[APart.lotAddActor] = QPart.lotAddActor;
+            dialogueSchema[APart.lotEndAddActor] = QPart.lotEndAddActor;
         }
 
         public string[] GetAnswers(APart type)

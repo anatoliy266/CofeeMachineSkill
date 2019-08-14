@@ -8,7 +8,9 @@ namespace WebApplication1.Modules
 {
     public interface ISecretary
     {
-        void AddRecord(AppointmentModel record);
+        void AddRecord(string dest, AppointmentModel record);
+        void RemoveDestination(string dest);
+        void AddDestination(string dest);
         List<DateTime> GetFreeDates();
         List<DateTime> GetFreeTimes();
     }
@@ -18,21 +20,35 @@ namespace WebApplication1.Modules
         public Secretary()
         {
             log = new Dictionary<string, List<AppointmentModel>>();
+            log["стоматолог"] = new List<AppointmentModel>();
+            log["офис"] = new List<AppointmentModel>();
         }
 
-        public void AddRecord(AppointmentModel record)
+
+        public void AddDestination(string dest)
         {
-            throw new NotImplementedException();
+            log[dest] = new List<AppointmentModel>();
         }
 
-        public List<DateTime> GetFreeDates()
+        public void RemoveDestination(string dest)
         {
-            throw new NotImplementedException();
+            log.Remove(dest);
+        }
+        public void AddRecord(string dest, AppointmentModel record)
+        {
+            var records = log[dest];
+            records.Add(record);
+            log[dest] = records;
+        }
+
+        public List<DateTime> GetFreeDates(string dest)
+        {
+            
         }
 
         public List<DateTime> GetFreeTimes()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

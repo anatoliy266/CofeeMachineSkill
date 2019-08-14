@@ -9,7 +9,7 @@ namespace AliseCofeemaker.Models
     public class AppointmentModel
     {
         //Место, в которое была сделана запись на прием
-        public string Destination { get; set; }
+        public string Name { get; set; }
 
         //Дата приема
         public DateTime Date { get; set; }
@@ -18,6 +18,6 @@ namespace AliseCofeemaker.Models
         public DateTime Time { get; set; }
 
         //Продолжительность приема
-        public int MeetingDuration { get; set; }
+        public int MeetingDuration { get; set; } 
     }
 }
