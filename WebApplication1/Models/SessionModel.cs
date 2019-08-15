@@ -160,6 +160,14 @@ namespace AliseCofeemaker.Models
             };
         }
 
+        /// <summary>
+        /// ответ на запрос с фонетической строкой
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="tts"></param>
+        /// <param name="endSession"></param>
+        /// <param name="buttons"></param>
+        /// <returns></returns>
         public AliceResponse Reply(string text, string tts, bool endSession = false, ButtonModel[] buttons = null)
         {
             return new AliceResponse
@@ -187,6 +195,47 @@ namespace AliseCofeemaker.Models
                 Session = Session
             };
         }
+    }
+
+
+    public class TokensModel
+    {
+        [JsonProperty("end")]
+        public int End { get; set; }
+        [JsonProperty("start")]
+        public int Start { get; set; }
+
+    }
+
+    public class ValuesModel
+    {
+        [JsonProperty("first_name")]
+        public string FirstName { get; set; }
+        [JsonProperty("last_name")]
+        public string LastName { get; set; }
+        [JsonProperty("patronymic_name")]
+        public string PatronymicName { get; set; }
+        [JsonProperty("city")]
+        public string City { get; set; }
+    }
+    public class EntityModel
+    {
+        [JsonProperty("tokens")]
+        public TokensModel Tokens { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
+        [JsonProperty("values")]
+        public ValuesModel Values { get; set; }
+    }
+
+
+    public class NluModel
+    {
+        [JsonProperty("entities")]
+        public EntityModel[] Entity { get; set; }
+
+        [JsonProperty("tokens")]
+        public string[] tokens { get; set; }
     }
 
     /// <summary>
@@ -218,6 +267,11 @@ namespace AliseCofeemaker.Models
         /// </summary>
         [JsonProperty("type")]
         public RequestType Type { get; set; }
+        /// <summary>
+        /// печень сущностей, определенных яндекс диалогом в запросе
+        /// </summary>
+        [JsonProperty("nlu")]
+        public NluModel nlu { get; set; }
         /// <summary>
         /// Полный текст пользовательского запроса, максимум 1024 символа.
         /// </summary>

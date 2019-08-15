@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CofeeController.cs" />
+    <Compile Remove="Models\AppointmentModel.cs" />
+    <Compile Remove="Modules\CofeeMaker.cs" />
+    <Compile Remove="Modules\LotManager.cs" />
+    <Compile Remove="Modules\Secretary.cs" />
+    <Compile Remove="Services\AnswerFabric.cs" />
+    <Compile Remove="Services\ReplicStorage.cs" />
+    <Compile Remove="Services\StatusChecker.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Enums\" />
   </ItemGroup>
