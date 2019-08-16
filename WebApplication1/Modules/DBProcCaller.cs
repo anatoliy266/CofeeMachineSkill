@@ -30,6 +30,7 @@ namespace AliseCofeemaker.Modules
             try
             {
                 conn.Open();
+                conn.Close();
             } catch (Exception e)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
@@ -42,6 +43,7 @@ namespace AliseCofeemaker.Modules
 
         public DataSet Call(string proc, Dictionary<string, object> parameters = null)
         {
+            conn.Open();
             var command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "CofeeMashineStatus";
@@ -49,6 +51,7 @@ namespace AliseCofeemaker.Modules
             var dataAdapter = new SqlDataAdapter(command);
             var dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
+            conn.Close();
             return dataSet;
         }
     }

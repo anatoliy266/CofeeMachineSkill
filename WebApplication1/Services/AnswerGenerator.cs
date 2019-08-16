@@ -30,7 +30,6 @@ namespace AliseCofeemaker.Services
             {
                 var result = procCaller.Call("CofeeMashineStatus");
             }
-            
 
             return reply;
         }
