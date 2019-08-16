@@ -103,13 +103,13 @@ namespace AliseCofeemaker.Services
             //запрос имен участников розыгрыша, пока не задана команда на конец набора - другие команды недоступны.
             string[] lotQ = new string[] { "Кто хочет идти?" }; questionStorage[QPart.lot] = lotQ;
             //успешное добавление участника
-            string[] lotAddActorQ { "Кто-то еще?" }; questionStorage[QPart.lotAddActor] = lotAddActorQ;
+            string[] lotAddActorQ = new string[] { "Кто-то еще?" }; questionStorage[QPart.lotAddActor] = lotAddActorQ;
             //ошибка при добавлении участника, не определено имя в alicerequest/
-            string[] lotAddActorErr { "Это не похоже на имя, попробуйте еще раз" }; questionStorage[QPart.lotAddActorErr] = lotAddActorErr; 
+            string[] lotAddActorErr = new string[] { "Это не похоже на имя, попробуйте еще раз" }; questionStorage[QPart.lotAddActorErr] = lotAddActorErr; 
             //завершение набора участников.
             string[] lotEndAddActorA = new string[] { "это все", "больше никого" }; answerStorage[APart.lotEndAddActor] = lotEndAddActorA;
             //вывод участника розыгрыша
-            string[] lotEndAddActorQ = new string[] { "Бросаю жребий...\r\nСейчас на обед пойдет " }; questionStorage[QPart.lotEndAddActor];
+            string[] lotEndAddActorQ = new string[] { "Бросаю жребий...\r\nСейчас на обед пойдет " }; questionStorage[QPart.lotEndAddActor] = lotEndAddActorQ;
 
 
             //запись на прием

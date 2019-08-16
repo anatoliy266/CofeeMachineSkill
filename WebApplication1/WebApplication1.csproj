@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="old\**" />
+    <Content Remove="old\**" />
+    <EmbeddedResource Remove="old\**" />
+    <None Remove="old\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\CofeeController.cs" />
     <Compile Remove="Models\AppointmentModel.cs" />
     <Compile Remove="Modules\CofeeMaker.cs" />
@@ -16,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Enums\" />
   </ItemGroup>

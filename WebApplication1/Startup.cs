@@ -31,11 +31,9 @@ namespace AliseCofeemaker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<ICofee, CofeeMaker>();
-            services.AddScoped<IStatus, StatusChecker>();
-            services.AddScoped<IAnswerFabric, AnswerFabric>();
-            services.AddScoped<IReplicStorage, ReplicStorage>();
-            services.AddScoped<ILot, LotManager>();
+            services.AddScoped<IDBProcCaller, DBProcCaller>();
+            services.AddScoped<IAnswerGenerator, AnswerGenerator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -27,10 +27,10 @@ namespace AliseCofeemaker.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private IAnswerFabric answerFabric;
-        public AliceController(IAnswerFabric fabric)
+        private IAnswerGenerator generator;
+        public AliceController(IAnswerGenerator gen)
         {
-            answerFabric = fabric;
+            generator = gen;
         }
 
         [HttpPost]
@@ -38,8 +38,8 @@ namespace AliseCofeemaker.Controllers
         public AliceResponse CofeeRequest([FromBody] AliceRequest aliceRequest)
         {
             logger.Debug("Получен запрос от Алисы: " + JsonConvert.SerializeObject(aliceRequest));
-            var answerProps = answerFabric.Answer(aliceRequest.Request.OriginalUtterance);
-            return aliceRequest.Reply(answerProps);
+           // var answerProps = answerFabric.Answer(aliceRequest.Request.OriginalUtterance);
+            return aliceRequest.Reply("some");
         }
 
         
