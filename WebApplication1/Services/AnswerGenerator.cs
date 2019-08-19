@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AliseCofeemaker.Models;
 using AliseCofeemaker.Modules;
@@ -24,15 +25,31 @@ namespace AliseCofeemaker.Services
         public string Generate(string[] tokens = null, EntityModel[] entities = null)
         {
             string reply = "";
-
-            
-            if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
+            if (tokens.Count() == 0)
             {
-                var result = procCaller.Call("CofeeMashineStatus");
+                reply = "Приветственное сообщение";
+            } else
+            {
+                if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
+                {
+                    var result = procCaller.Call("CofeeMashineStatus");
+                    if (result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
+                    {
+                        WebClient client = new WebClient();
+                        client.Headers.Add(HttpRequestHeader.Accept, "");
+                        client.Headers.Add(HttpRequestHeader.Allow, "GET");
+                        client.DownloadData("https://someurl.net");
+                        reply = "Задача передана кофе-машине";
+                    }
+                    else
+                    {
+                        reply = result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
+                    }
+                }
             }
-
+            
+            
             return reply;
         }
-
     }
 }

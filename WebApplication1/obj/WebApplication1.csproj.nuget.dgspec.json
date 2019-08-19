@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vs19\\Source\\Repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\admin\\source\\repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vs19\\Source\\Repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\admin\\source\\repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vs19\\Source\\Repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\source\\repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\vs19\\Source\\Repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj",
-        "packagesPath": "C:\\Users\\vs19\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vs19\\Source\\Repos\\CofeeMachineSkill\\WebApplication1\\obj\\",
+        "projectPath": "C:\\Users\\admin\\source\\repos\\CofeeMachineSkill\\WebApplication1\\WebApplication1.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\source\\repos\\CofeeMachineSkill\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\vs19\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -27,6 +27,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\admin\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -55,7 +56,6 @@
               "version": "[2.1.2, )"
             },
             "Microsoft.NETCore.App": {
-              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
