@@ -16,17 +16,23 @@ namespace AliseCofeemaker.Modules
 
     public class DBProcCaller : IDBProcCaller
     {
+        
         private SqlConnection conn;
 
         public DBProcCaller()
         {
+            //подключение к базе данных
             conn = new SqlConnection();
+
+            //формируется строка подключения
             SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
             sb.InitialCatalog = "master";
             sb.DataSource = "(local)/SQLEXPRESS";
             sb.UserID = "sa";
             sb.Password = "123";
             conn.ConnectionString = sb.ConnectionString;
+
+            //проверка подключения
             try
             {
                 conn.Open();
@@ -38,9 +44,16 @@ namespace AliseCofeemaker.Modules
             }
         }
 
+        //
         public SqlConnection connection { get => conn; set => conn = value; }
 
 
+        /// <summary>
+        /// Вызов хранимой процедуры
+        /// </summary>
+        /// <param name="proc">Имя хранимой процедуры</param>
+        /// <param name="parameters">список параметров параметр-значение</param>
+        /// <returns>DataSet Результат выполнения хранимой процедуры</returns>
         public DataSet Call(string proc, Dictionary<string, object> parameters = null)
         {
             conn.Open();

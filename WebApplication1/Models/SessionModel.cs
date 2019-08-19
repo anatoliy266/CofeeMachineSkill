@@ -228,12 +228,20 @@ namespace AliseCofeemaker.Models
         public ValuesModel Values { get; set; }
     }
 
-
+    /// <summary>
+    /// Определенные процессором алисы сущности и слова в запросе пользователя
+    /// </summary>
     public class NluModel
     {
+        /// <summary>
+        /// Определенные сущности в запросе: YANDEX.Fio, YANDEX.city и т.д.
+        /// </summary>
         [JsonProperty("entities")]
         public EntityModel[] Entity { get; set; }
 
+        /// <summary>
+        /// массив слов запроса пользователя
+        /// </summary>
         [JsonProperty("tokens")]
         public string[] tokens { get; set; }
     }

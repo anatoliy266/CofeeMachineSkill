@@ -39,7 +39,7 @@ namespace AliseCofeemaker.Controllers
         {
             logger.Debug("Получен запрос от Алисы: " + JsonConvert.SerializeObject(aliceRequest));
             var answer = generator.Generate(aliceRequest.Request.nlu.tokens, aliceRequest.Request.nlu.Entity);
-            return aliceRequest.Reply("some");
+            return aliceRequest.Reply(answer);
         }
 
         
