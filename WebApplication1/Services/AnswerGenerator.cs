@@ -13,17 +13,20 @@ namespace AliseCofeemaker.Services
     {
         string Generate();
 
-        void SetTokens(string[] tokens);
+        void SetData(string[] tokens, EntityModel[] ent);
     }
 
     public class AnswerGenerator : IAnswerGenerator
     {
         private IDBProcCaller procCaller;
+        private ILot lot;
         private SkillCategory category;
         private string[] words;
-        public AnswerGenerator(IDBProcCaller caller)
+        EntityModel[] entities;
+        public AnswerGenerator(IDBProcCaller caller, ILot lotMaker)
         {
             procCaller = caller;
+            lot = lotMaker;
             category = SkillCategory.no;
         }
 
@@ -32,8 +35,6 @@ namespace AliseCofeemaker.Services
         /// <summary>
         /// генерация ответа от навыка на основе запроса пользователя
         /// </summary>
-        /// <param name="tokens">массив слов запроса</param>
-        /// <param name="entities">массив определенных процессором алисы сущностей</param>
         /// <returns>подготовленный ответ</returns>
         public string Generate()
         {
@@ -51,6 +52,10 @@ namespace AliseCofeemaker.Services
                         reply = CofeeMaker();
                         break;
                     }
+                case SkillCategory.lot: //кто пойдет на обед
+                    {
+                        reply = LotMaker();
+                        break;                    }
                 case SkillCategory.unknown: //неизвестный запрос
                     {
                         reply = "Не понимаю о чем вы, попробуйте еще раз";
@@ -61,12 +66,16 @@ namespace AliseCofeemaker.Services
             return reply;
         }
 
-        public void SetTokens(string[] tokens)
+        public void SetData(string[] tokens, EntityModel[] ent)
         {
-            if (category != SkillCategory.no)
-            {
+            SetTokens(tokens);
+            SetEntities(new EntityModel[] { });
+        }
 
-            } else
+
+        private void SetTokens(string[] tokens)
+        {
+            if (category == SkillCategory.no)
             {
                 if (tokens.Count() == 0)
                 {
@@ -78,6 +87,9 @@ namespace AliseCofeemaker.Services
                     if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
                     {
                         category = SkillCategory.cofeeMachine;
+                    } else if (tokens.Contains("обед"))
+                    {
+                        category = SkillCategory.lot;
                     }
                     else
                     {
@@ -85,9 +97,12 @@ namespace AliseCofeemaker.Services
                     }
                 }
             }
-
-            
             words = tokens;
+        }
+
+        private void SetEntities(EntityModel[] ent)
+        {
+            entities = ent;
         }
 
         private string CofeeMaker()
@@ -105,6 +120,7 @@ namespace AliseCofeemaker.Services
                 client.DownloadData("https://someurl.net");
 
                 //возвращаемый ответ
+                category = SkillCategory.no;
                 return "Задача передана кофе-машине";
             }
             else
@@ -114,6 +130,43 @@ namespace AliseCofeemaker.Services
                 //ответ = значение из поля status
                 return result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
             }
+        }
+
+        private string LotMaker()
+        {
+            if (words.Contains("все"))
+            {
+                return lot.GetMember();
+            } else
+            {
+                if (entities.Count() > 0)
+                {
+                    bool bIsName = false;
+                    foreach (var entity in entities)
+                    {
+                        if (entity.Values.FirstName != null)
+                        {
+                            lot.AddMember(entity.Values.FirstName);
+                            bIsName = true;
+                        } 
+                    }
+
+                    if (bIsName)
+                    {
+                        return "Хорошо, еще кто-нибудь?";
+                    }
+                    else
+                    {
+                        return "не похоже на имя, попробуйте еще раз";
+                    }
+                }
+                else
+                {
+                    return "Сперва назовите несколько имен";
+                }
+            }
+
+            
         }
     }
 }

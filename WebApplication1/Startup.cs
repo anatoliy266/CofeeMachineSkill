@@ -14,7 +14,6 @@ using Microsoft.Extensions.Options;
 using AliseCofeemaker.Controllers;
 using AliseCofeemaker.Services;
 using AliseCofeemaker.Modules;
-using AliseCofeemaker.Models;
 
 namespace AliseCofeemaker
 {
@@ -33,7 +32,7 @@ namespace AliseCofeemaker
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IDBProcCaller, DBProcCaller>();
             services.AddScoped<IAnswerGenerator, AnswerGenerator>();
-
+            services.AddScoped<ILot, Lot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
