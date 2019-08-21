@@ -38,7 +38,8 @@ namespace AliseCofeemaker.Controllers
         public AliceResponse CofeeRequest([FromBody] AliceRequest aliceRequest)
         {
             logger.Debug("Получен запрос от Алисы: " + JsonConvert.SerializeObject(aliceRequest));
-            var answer = generator.Generate(aliceRequest.Request.nlu.tokens, aliceRequest.Request.nlu.Entity);
+            generator.SetTokens(aliceRequest.Request.nlu.tokens);
+            var answer = generator.Generate();
             return aliceRequest.Reply(answer);
         }
 

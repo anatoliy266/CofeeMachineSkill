@@ -12,6 +12,7 @@ namespace AliceCofeemaker.Enums
         officiant,
         lot,
         start,
-        unknown
+        unknown,
+        no
     }
 }

@@ -24,6 +24,7 @@ namespace AliseCofeemaker.Services
         public AnswerGenerator(IDBProcCaller caller)
         {
             procCaller = caller;
+            category = SkillCategory.no;
         }
 
 
@@ -62,27 +63,30 @@ namespace AliseCofeemaker.Services
 
         public void SetTokens(string[] tokens)
         {
-            if (//category не пустая)
+            if (category != SkillCategory.no)
             {
 
-            }
-
-            if (tokens.Count() == 0)
+            } else
             {
-                category = SkillCategory.start;
-            }
-            else
-            {
-                //на входе не пустое сообщение
-                if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
+                if (tokens.Count() == 0)
                 {
-                    category = SkillCategory.cofeeMachine;
+                    category = SkillCategory.start;
                 }
                 else
                 {
-                    category = SkillCategory.unknown;
+                    //на входе не пустое сообщение
+                    if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
+                    {
+                        category = SkillCategory.cofeeMachine;
+                    }
+                    else
+                    {
+                        category = SkillCategory.unknown;
+                    }
                 }
             }
+
+            
             words = tokens;
         }
 
