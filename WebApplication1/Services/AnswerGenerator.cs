@@ -13,7 +13,7 @@ namespace AliseCofeemaker.Services
     {
         string Generate();
 
-        void SetData(string[] tokens, EntityModel[] ent);
+        void SetData(AliceRequest request);
     }
 
     public class AnswerGenerator : IAnswerGenerator
@@ -22,7 +22,8 @@ namespace AliseCofeemaker.Services
         private ILot lot;
         private SkillCategory category;
         private string[] words;
-        EntityModel[] entities;
+        private EntityModel[] entities;
+        private string session;
         public AnswerGenerator(IDBProcCaller caller, ILot lotMaker)
         {
             procCaller = caller;
@@ -55,23 +56,23 @@ namespace AliseCofeemaker.Services
                 case SkillCategory.lot: //кто пойдет на обед
                     {
                         reply = LotMaker();
-                        break;                    }
+                        break;
+                    }
                 case SkillCategory.unknown: //неизвестный запрос
                     {
                         reply = "Не понимаю о чем вы, попробуйте еще раз";
                         break;
                     }
             }
-            
             return reply;
         }
 
-        public void SetData(string[] tokens, EntityModel[] ent)
+        public void SetData(AliceRequest request)
         {
-            SetTokens(tokens);
-            SetEntities(new EntityModel[] { });
+            SetTokens(request.Request.nlu.tokens);
+            SetEntities(request.Request.nlu.Entity);
+            session = request.Session.SessionId;
         }
-
 
         private void SetTokens(string[] tokens)
         {
@@ -87,7 +88,7 @@ namespace AliseCofeemaker.Services
                     if (tokens.Contains("кофе") && tokens.Intersect(new string[] { "свари", "сделай", "приготовь" }).Count() > 0)
                     {
                         category = SkillCategory.cofeeMachine;
-                    } else if (tokens.Contains("обед"))
+                    } else if (tokens.Contains("запоминай") && tokens.Contains("имена"))
                     {
                         category = SkillCategory.lot;
                     }
@@ -134,39 +135,17 @@ namespace AliseCofeemaker.Services
 
         private string LotMaker()
         {
-            if (words.Contains("все"))
+            lot.Session = session;
+            if (!words.Contains("жребий"))
             {
-                return lot.GetMember();
+                return lot.AddMember(entities);
             } else
             {
-                if (entities.Count() > 0)
-                {
-                    bool bIsName = false;
-                    foreach (var entity in entities)
-                    {
-                        if (entity.Values.FirstName != null)
-                        {
-                            lot.AddMember(entity.Values.FirstName);
-                            bIsName = true;
-                        } 
-                    }
-
-                    if (bIsName)
-                    {
-                        return "Хорошо, еще кто-нибудь?";
-                    }
-                    else
-                    {
-                        return "не похоже на имя, попробуйте еще раз";
-                    }
-                }
-                else
-                {
-                    return "Сперва назовите несколько имен";
-                }
+                category = SkillCategory.no;
+                return lot.GetMember();
             }
-
-            
         }
+
+        
     }
 }

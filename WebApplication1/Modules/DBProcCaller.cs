@@ -59,8 +59,17 @@ namespace AliseCofeemaker.Modules
             conn.Open();
             var command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "CofeeMashineStatus";
+            command.CommandText = proc;
             command.Connection = conn;
+
+            if (parameters != null)
+            {
+                foreach (var parameter in parameters.Keys)
+                {
+                    command.Parameters.AddWithValue(parameter, parameters[parameter]);
+                }
+            }
+
             var dataAdapter = new SqlDataAdapter(command);
             var dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
