@@ -135,6 +135,11 @@ namespace AliseCofeemaker.Services
 
         private string LotMaker()
         {
+            ///проверка есть ли записи по сессии в базе
+
+            //записи есть
+            //if (записи есть)
+            //{
             lot.Session = session;
             if (!(words.Intersect(new string[] { "выбирай", "жребий" }).Count() > 0))
             {
@@ -144,6 +149,9 @@ namespace AliseCofeemaker.Services
                 category = SkillCategory.no;
                 return lot.GetMember();
             }
+            //} else (записей нет) {
+            //
+            //}
         }
 
         
