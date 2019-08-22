@@ -136,7 +136,7 @@ namespace AliseCofeemaker.Services
         private string LotMaker()
         {
             lot.Session = session;
-            if (!words.Contains("жребий"))
+            if (!(words.Intersect(new string[] { "выбирай", "жребий" }).Count() > 0))
             {
                 return lot.AddMember(entities);
             } else

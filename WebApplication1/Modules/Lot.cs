@@ -28,23 +28,30 @@ namespace AliseCofeemaker.Modules
         {
             if (entities.Count() > 0)
             {
+                //есть определенные алисой сущности
                 int count = 0;
                 foreach (var ent in entities)
                 {
                     if (ent.Type == "YANDEX.FIO" && ent.Values.FirstName != null)
                     {
+                        //сущность - имя
                         Dictionary<string, object> parameters = new Dictionary<string, object>();
                         parameters["action"] = "ADD";
                         parameters["session"] = session;
                         parameters["name"] = ent.Values.FirstName;
+                        
                         var result = procCaller.Call("AliceLotServise", parameters);
 
                         if (result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
                         {
+                            //вставка прошла успешно
+                            //status = ok
                             count++;
                         }
                         else
                         {
+                            //ошибка при записи имени
+                            //status != ok
                             return result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
                         }
                     }
@@ -52,6 +59,7 @@ namespace AliseCofeemaker.Modules
 
                 if (count > 0)
                 {
+                    //имена были вставлены
                     switch (count)
                     {
                         case 1:
@@ -66,11 +74,13 @@ namespace AliseCofeemaker.Modules
                 }
                 else
                 {
+                    //ни одного имени не было вставлено
                     return "Имя не распознано, попробуйте еще раз";
                 }
             }
             else
             {
+                //сущностей в запросе нет
                 return "Среди предложенных вариантов имен не обнаружено";
             }
         }
@@ -91,7 +101,7 @@ namespace AliseCofeemaker.Modules
                     var i = r.Next(result.Tables[0].Rows.Count); //порядковый номер из массива имен
                     var name = result.Tables[0].Rows[i].ItemArray[result.Tables[0].Columns.IndexOf("name")];
                     procCaller.Call("AliceLotService", new Dictionary<string, object> { ["action"] = "DEL" });
-                    return "я вбираю " + name;
+                    return "я выбираю " + name;
                 }
                 else
                 {
