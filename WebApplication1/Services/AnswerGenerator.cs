@@ -111,7 +111,7 @@ namespace AliseCofeemaker.Services
             //запрос к базе, возращает DataSet с олонкой status
             var result = procCaller.Call("CofeeMashineStatus");
 
-            if (result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
+            if (result.Tables["status"].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
             {
                 //status == ok
                 //GET запрос на внешний ресурс
@@ -129,31 +129,32 @@ namespace AliseCofeemaker.Services
                 //status != ok, кофемашина занята
 
                 //ответ = значение из поля status
-                return result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
+                return result.Tables["status"].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
             }
         }
 
         private string LotMaker()
         {
-            ///проверка есть ли записи по сессии в базе
-
-            //записи есть
-            //if (записи есть)
-            //{
             lot.Session = session;
-            if (!(words.Intersect(new string[] { "выбирай", "жребий" }).Count() > 0))
+            if (lot.bIsInit())
             {
-                return lot.AddMember(entities);
-            } else
-            {
-                category = SkillCategory.no;
-                return lot.GetMember();
+                return "Запоминаю";
             }
-            //} else (записей нет) {
-            //
-            //}
-        }
+            else
+            {
+                if (!(words.Intersect(new string[] { "выбирай", "жребий" }).Count() > 0))
+                {
+                    return lot.AddMember();
+                }
+                else
+                {
+                    category = SkillCategory.no;
+                    return lot.GetMember();
+                }
+            }
 
-        
+
+            
+        }
     }
 }

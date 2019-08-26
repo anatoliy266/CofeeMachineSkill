@@ -9,8 +9,9 @@ namespace AliseCofeemaker.Modules
     public interface ILot
     {
         string Session { get; set; }
-        string AddMember(EntityModel[] entities);
+        string AddMember();
         string GetMember();
+        bool bIsInit();
     }
 
     public class Lot : ILot
@@ -24,7 +25,9 @@ namespace AliseCofeemaker.Modules
 
         public string Session { get => session; set => session = value; }
 
-        public string AddMember(EntityModel[] entities)
+        private EntityModel[] entities;
+
+        public string AddMember()
         {
             if (entities.Count() > 0)
             {
@@ -42,7 +45,7 @@ namespace AliseCofeemaker.Modules
                         
                         var result = procCaller.Call("AliceLotServise", parameters);
 
-                        if (result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
+                        if (result.Tables["status"].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString() == "ok")
                         {
                             //вставка прошла успешно
                             //status = ok
@@ -52,7 +55,7 @@ namespace AliseCofeemaker.Modules
                         {
                             //ошибка при записи имени
                             //status != ok
-                            return result.Tables[0].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
+                            return result.Tables["status"].Rows[0].ItemArray[result.Tables[0].Columns.IndexOf("status")].ToString();
                         }
                     }
                 }
@@ -100,7 +103,7 @@ namespace AliseCofeemaker.Modules
                     Random r = new Random();
                     var i = r.Next(result.Tables[0].Rows.Count); //порядковый номер из массива имен
                     var name = result.Tables[0].Rows[i].ItemArray[result.Tables[0].Columns.IndexOf("name")];
-                    procCaller.Call("AliceLotService", new Dictionary<string, object> { ["action"] = "DEL" });
+                    procCaller.Call("AliceLotService", new Dictionary<string, object> { ["action"] = "DEL", ["session"] = session });
                     return "я выбираю " + name;
                 }
                 else
@@ -113,6 +116,26 @@ namespace AliseCofeemaker.Modules
             {
                 //ни одного имени по переданной сессии
                 return "Недостаточно имен для жребия";
+            }
+        }
+
+        public bool bIsInit()
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["session"] = session;
+            parameters["action"] = "GET";
+            var result = procCaller.Call("AliceLotServise", parameters);
+
+            if (result.Tables["status"].Rows[0].ItemArray[result.Tables["status"].Columns.IndexOf("status")] != null )
+            {
+                return false;
+            } else
+            {
+                Dictionary<string, object> p = new Dictionary<string, object>();
+                parameters["session"] = session;
+                parameters["action"] = "NEWSESSION";
+                procCaller.Call("AliceLotServise", p);
+                return true;
             }
         }
     }
