@@ -33,6 +33,7 @@ namespace AliseCofeemaker
             services.AddScoped<IDBProcCaller, DBProcCaller>();
             services.AddScoped<IAnswerGenerator, AnswerGenerator>();
             services.AddScoped<ILot, Lot>();
+            services.AddScoped<ILunch, Lunch>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

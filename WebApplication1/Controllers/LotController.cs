@@ -21,6 +21,8 @@ namespace AliseCofeemaker.Controllers
         {
             aGen = answer;
         }
+
+
         // POST api/<controller>
         [HttpPost]
         public AliceResponse Post([FromBody] AliceRequest aliceRequest)

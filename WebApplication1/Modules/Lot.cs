@@ -9,6 +9,7 @@ namespace AliseCofeemaker.Modules
     public interface ILot
     {
         string Session { get; set; }
+        EntityModel[] Entities { get; set; }
         string AddMember();
         string GetMember();
         bool bIsInit();
@@ -24,6 +25,7 @@ namespace AliseCofeemaker.Modules
         }
 
         public string Session { get => session; set => session = value; }
+        public EntityModel[] Entities { get => entities; set => entities = value; }
 
         private EntityModel[] entities;
 

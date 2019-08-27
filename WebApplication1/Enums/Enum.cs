@@ -15,4 +15,11 @@ namespace AliceCofeemaker.Enums
         unknown,
         no
     }
+
+    public enum LunchOrderState
+    {
+        noItem = 0,
+        noAddess,
+        complete
+    }
 }
